@@ -1,34 +1,37 @@
+import {Action, createReducer, createSelector, on} from '@ngrx/store';
+import {loadSystemsAction} from '../../actions/system.actions';
 import {System} from '../../models/system';
-import {SystemsActions, SystemsActionTypes} from '../../actions/system.actions';
-import {createSelector} from '@ngrx/store';
+import {State} from '../index';
 
 
 export const systemsFeatureKey = 'systems';
 
-export interface State {
+export interface SystemsState {
   systems: System[];
 }
 
-export const initialState: State = {
+export const initialState: SystemsState = {
   systems: []
 };
 
-export function reducer(state = initialState, action: SystemsActions): State {
-  switch (action.type) {
-    case SystemsActionTypes.LoadSystems:
-      return loadSystems(state, action.payload.systems);
-    default:
-      return state;
-  }
+const systemsReducer = createReducer(
+  initialState,
+  on(loadSystemsAction, loadSystems)
+);
+
+export function reducer(state: SystemsState | undefined, action: Action) {
+  return systemsReducer(state, action);
 }
 
-function loadSystems(state: State, systems: System[]): State {
+function loadSystems(state: SystemsState, action): SystemsState {
   return {
     ...state,
-    systems
+    systems: action.systems
   };
 }
 
-export const selectSystems = (state: State) => state.systems;
+export const selectSystems = (state: State) => state[systemsFeatureKey];
 
 export const systemsSelector = createSelector(selectSystems, (state) => state);
+
+export const getSystems = createSelector(systemsSelector, (state) => state.systems);

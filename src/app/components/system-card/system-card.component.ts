@@ -1,6 +1,6 @@
+import {HttpClient} from '@angular/common/http';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {System} from '../../models/system';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-system-card',
@@ -20,7 +20,7 @@ export class SystemCardComponent implements OnInit {
 
   click() {
     console.log('clicked');
-    this.httpClient.post('http://localhost:8080/systems', {data: 'hello'}, {withCredentials: false})
+    this.httpClient.post('http://localhost:8080/systems/message', {data: 'hello'}, {withCredentials: false})
       .subscribe((d: { data: string }) => {
         this.clickEmitter.emit(d.data);
       });

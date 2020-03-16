@@ -1,6 +1,8 @@
 export interface System {
+  id: number;
+  url: string;
   name: string;
-  teamName: string;
+  team: string;
   icon: string;
-  freeText: string;
+  details: string;
 }

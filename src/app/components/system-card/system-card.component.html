@@ -3,14 +3,14 @@
     <span mat-card-avatar class="{{system.icon}} icon"></span>
     <!--    <div mat-card-avatar style="background-size: cover" [style.background-image]="'url(https://material.angular.io/assets/img/examples/shiba1.jpg)'"></div>-->
     <mat-card-title (click)="click()">{{system.name}}</mat-card-title>
-    <mat-card-subtitle>{{system.teamName}}</mat-card-subtitle>
+    <mat-card-subtitle>{{system.team}}</mat-card-subtitle>
   </mat-card-header>
   <!--&lt;!&ndash;-->
   <!--  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
   <!--&ndash;&gt;-->
   <mat-card-content>
    <span>
-     {{system.freeText}}
+     {{system.details}}
    </span>
   </mat-card-content>
   <mat-card-actions>
