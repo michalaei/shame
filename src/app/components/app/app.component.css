@@ -1,0 +1,44 @@
+.app-root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-system-card {
+  margin: 5px;
+}
+
+.system-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 80vw;
+}
+
+.header {
+  background-color: red;
+  background-image: linear-gradient(pink, #c09096);
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.header-title {
+  font-size: 3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  height: 10vh;
+}
+
+.header-second-title {
+  font-size: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 10vh;
+}

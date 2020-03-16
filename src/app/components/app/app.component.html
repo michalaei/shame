@@ -1,0 +1,9 @@
+<div class="app-root">
+  <div class="header">
+    <span class="header-title">Wall of Shame</span>
+    <span class="header-second-title">Developed by WarriorTeam</span>
+  </div>
+  <div class="system-container">
+    <app-system-card *ngFor="let system of systems" [system]="system" (clickEmitter)="notify($event, system.name)"></app-system-card>
+  </div>
+</div>
