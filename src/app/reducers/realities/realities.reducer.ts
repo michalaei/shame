@@ -1,5 +1,5 @@
 import {Action, createReducer, createSelector, on} from '@ngrx/store';
-import {loadRealitiesAction} from '../../actions/realities.actions';
+import {changeRealityAction, loadRealitiesAction} from '../../actions/realities.actions';
 import {State} from '../index';
 
 export interface Reality {
@@ -24,7 +24,8 @@ export const initialState: RealitiesState = {
 
 const realitiesReducer = createReducer(
   initialState,
-  on(loadRealitiesAction, loadRealities)
+  on(loadRealitiesAction, loadRealities),
+  on(changeRealityAction, selectReality)
 );
 
 export function reducer(state: RealitiesState | undefined, action: Action) {

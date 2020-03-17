@@ -1,5 +1,5 @@
 import {Action, createReducer, createSelector, on} from '@ngrx/store';
-import {loadSystemsAction} from '../../actions/system.actions';
+import {loadSystemsAction, toggleSystemGraphAction} from '../../actions/system.actions';
 import {System} from '../../models/system';
 import {State} from '../index';
 
@@ -16,7 +16,8 @@ export const initialState: SystemsState = {
 
 const systemsReducer = createReducer(
   initialState,
-  on(loadSystemsAction, loadSystems)
+  on(loadSystemsAction, loadSystems),
+  on(toggleSystemGraphAction, toggleSystemGraph)
 );
 
 export function reducer(state: SystemsState | undefined, action: Action) {
@@ -28,6 +29,25 @@ function loadSystems(state: SystemsState, action): SystemsState {
     ...state,
     systems: action.systems
   };
+}
+
+function toggleSystemGraph(state: SystemsState, action): SystemsState {
+  const newSystem = action.systemId;
+  const isGraphOpen = action.isGraphOpen;
+  let systemToUpdate = state.systems.find(system => system.id === newSystem);
+  const newState = state.systems.filter(system => system.id !== newSystem);
+  if (systemToUpdate) {
+    systemToUpdate = Object.assign({}, systemToUpdate, {isGraphOpen});
+    return {
+      ...state,
+      systems: [...newState, systemToUpdate]
+    };
+  } else {
+    return {
+      ...state,
+      systems: [...newState]
+    };
+  }
 }
 
 export const selectSystems = (state: State) => state[systemsFeatureKey];

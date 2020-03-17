@@ -4,16 +4,19 @@
     <span class="header-second-title">Developed by WarriorTeam</span>
     <mat-form-field dir="rtl">
       <mat-label dir="rtl">מציאות</mat-label>
-      <mat-select dir="rtl" [value]="selectedRealityOb | async" (selectionChange)="realitySelectionChanged($event)">
-        <mat-option dir="rtl" *ngFor="let reality of realities | async" [value]="reality.name">
+      <mat-select dir="rtl" [formControl]="realitiesForm" (selectionChange)="realitySelectionChanged($event)">
+        <mat-select-trigger>
+          {{realitiesForm.value?.name}}
+        </mat-select-trigger>
+        <mat-option dir="rtl" *ngFor="let reality of realities | async" [value]="reality">
           {{reality.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <div class="system-container">
-    <app-system-card *ngFor="let system of (systems | async)"
-                     [system]="system"
+    <app-system-card *ngFor="let system of (systemWithStats | async) | sort:['system','name']"
+                     [systemWithStat]="system"
                      (clickEmitter)="notify($event, system.name)"></app-system-card>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import {LayoutModule} from '@angular/cdk/layout';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -13,20 +14,24 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {ChartsModule} from 'ng2-charts';
 import {environment} from '../environments/environment';
-
 import {AppComponent} from './components/app/app.component';
 import {SystemCardComponent} from './components/system-card/system-card.component';
+import {SortPipe} from './pipes/sort/sort.pipe';
 import {metaReducers, reducers} from './reducers';
 import {PushNotificationsService} from './services/push-notifications/push-notifications.service';
 import {RealitiesManagerService} from './services/realities-manager/realities-manager.service';
 import {SystemsManagerService} from './services/systems-manager/systems-manager.service';
+import { MyLineChartComponent } from './components/my-line-chart/my-line-chart.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SystemCardComponent
+    SystemCardComponent,
+    SortPipe,
+    MyLineChartComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +54,11 @@ import {SystemsManagerService} from './services/systems-manager/systems-manager.
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    ReactiveFormsModule,
+    ChartsModule
   ],
-  providers: [PushNotificationsService, SystemsManagerService,RealitiesManagerService],
+  providers: [PushNotificationsService, SystemsManagerService, RealitiesManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -17,7 +17,7 @@ app-system-card {
 }
 
 .header {
-  background-color: red;
+  background-color: pink;
   background-image: linear-gradient(pink, #c09096);
   height: 20vh;
   display: flex;
@@ -41,4 +41,9 @@ app-system-card {
   flex-direction: row;
   align-items: center;
   height: 10vh;
+}
+
+app-my-line-chart {
+  max-width: 80vw;
+  max-height: 10vh
 }

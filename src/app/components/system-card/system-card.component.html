@@ -1,13 +1,14 @@
-<mat-card class="example-card">
+<mat-card class="example-card" [ngClass]="{'example-card-alive':system.isAlive, 'example-card-dead':!system.isAlive}">
   <mat-card-header>
     <span mat-card-avatar class="{{system.icon}} icon"></span>
     <!--    <div mat-card-avatar style="background-size: cover" [style.background-image]="'url(https://material.angular.io/assets/img/examples/shiba1.jpg)'"></div>-->
     <mat-card-title (click)="click()">{{system.name}}</mat-card-title>
     <mat-card-subtitle>{{system.team}}</mat-card-subtitle>
   </mat-card-header>
-  <!--&lt;!&ndash;-->
-  <!--  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
-  <!--&ndash;&gt;-->
+  <div *ngIf="system.isGraphOpen">
+    <app-my-line-chart [data]="data" [labels]="labels" [labelGraph]="'duration in ms'"></app-my-line-chart>
+  </div>
+  <!--    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
   <mat-card-content>
    <span>
      {{system.details}}
@@ -15,6 +16,6 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
+    <button mat-button (click)="handleToggleGraph()">GRAPH</button>
   </mat-card-actions>
 </mat-card>

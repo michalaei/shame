@@ -1,6 +1,15 @@
 .example-card {
   max-width: 400px;
 }
+
+.example-card-alive {
+  border: 5px dashed aquamarine;
+}
+
+.example-card-dead {
+  border: 5px dashed crimson;
+}
+
 .icon{
   font-size: 2.5em;
 }
