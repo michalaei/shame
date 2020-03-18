@@ -10,16 +10,6 @@ import {State} from '../../reducers';
 import {getSelectedReality, Reality} from '../../reducers/realities/realities.reducer';
 import {PushNotificationsService} from '../push-notifications/push-notifications.service';
 
-export class Message {
-  constructor(
-    public sender: string,
-    public content: string,
-    public isBroadcast = false,
-  ) {
-  }
-}
-
-
 @Injectable({providedIn: 'root'})
 export class SystemsManagerService {
   private sockets: WebSocketSubject<any>;
