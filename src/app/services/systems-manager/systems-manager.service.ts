@@ -1,18 +1,47 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
+import {WebSocketSubject} from 'rxjs/internal-compatibility';
 import {take} from 'rxjs/operators';
 import {loadStats} from '../../actions/stats.actions';
 import {loadSystemsAction} from '../../actions/system.actions';
 import {System, SystemStat} from '../../models/system';
 import {State} from '../../reducers';
-import {getSelectedReality} from '../../reducers/realities/realities.reducer';
+import {getSelectedReality, Reality} from '../../reducers/realities/realities.reducer';
+import {PushNotificationsService} from '../push-notifications/push-notifications.service';
+
+export class Message {
+  constructor(
+    public sender: string,
+    public content: string,
+    public isBroadcast = false,
+  ) {
+  }
+}
+
 
 @Injectable({providedIn: 'root'})
 export class SystemsManagerService {
+  private sockets: WebSocketSubject<any>;
 
-  constructor(private httpClient: HttpClient,
+  constructor(private pushNotificationsService: PushNotificationsService,
+              private httpClient: HttpClient,
               private stateStore: Store<State>) {
+    this.sockets = new WebSocketSubject('ws://localhost:9090');
+    this.sockets.subscribe((message: { server: string, reality: Reality, status: 'down' }) => {
+      console.log('Got new Message', message);
+      this.notify(`server ${message.server} is ${message.status} in reality ${message.reality.name}`,
+        `${message.server} is ${message.status}`);
+    });
+  }
+
+  notify(body: string, cardTitle: string) {
+    const data: any[] = [];
+    data.push({
+      title: cardTitle,
+      alertContent: body
+    });
+    this.pushNotificationsService.generateNotification(data);
   }
 
   init() {
